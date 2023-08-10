@@ -1,11 +1,12 @@
 import { FoodItem } from "../components/FoodItem";
 import { menuItems } from "../mockData/menuItems";
+import { FoodItem as FoodItemType } from "../types";
 
 export default function RestaurantMenu() {
   return (
     <div className="flex flex-col justify-center items-center">
-      {menuItems?.categories[0]?.menu_item_list.map((foodItem) => {
-        return <FoodItem foodItemData={foodItem} />;
+      {menuItems?.map((foodItem: FoodItemType) => {
+        return <FoodItem foodItem={foodItem} />;
       })}
     </div>
   );

@@ -2,10 +2,10 @@ import { Suspense } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Home from "./pages/Home";
-import About from "./pages/About";
-import Contact from "./pages/Contact";
 import Layout from "./components/Layout";
 import RestaurantMenu from "./pages/RestaurantMenu";
+import Offers from "./pages/Offers";
+import Help from "./pages/Help";
 
 export default function App() {
   return (
@@ -14,8 +14,8 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
+            <Route path="/offers" element={<Offers />} />
+            <Route path="/help" element={<Help />} />
             <Route path="/restaurants/:name" element={<RestaurantMenu />} />
           </Route>
         </Routes>
