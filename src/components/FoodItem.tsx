@@ -1,24 +1,17 @@
-import useLocalStorageState from "use-local-storage-state";
 import { FoodItem as FoodItemType } from "../types";
+import { useContext } from "react";
+import CartContext from "../context/cart/CartContext";
 
 type FoodItemProps = {
   foodItem: FoodItemType;
 };
 
 export function FoodItem({ foodItem }: FoodItemProps) {
-  const [cart, setCart] = useLocalStorageState("cart", {});
   const { name, image, description, id } = foodItem;
-
-  const addToCart = (item: FoodItemType): void => {
-    setCart((prevCart: FoodItemType) => ({
-      ...prevCart,
-      [item.id]: item,
-    }));
-  };
+  const { addToCart, cartItems, increase } = useContext(CartContext);
 
   const isInCart = (itemId: string): boolean => {
-    debugger;
-    return Object.keys(cart || {}).includes(itemId.toString());
+    return !!cartItems.find((item) => item.id === itemId);
   };
 
   return (
@@ -43,10 +36,11 @@ export function FoodItem({ foodItem }: FoodItemProps) {
         <button
           type="button"
           className="absolute w-auto z-10 bottom-2 left-0 right-0 rounded bg-primary px-6 pb-2 pt-2.5 disabled:opacity-40 bg-blue-500 text-xs font-medium uppercase leading-normal shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
-          disabled={isInCart(id)}
-          onClick={() => addToCart(foodItem)}
+          onClick={() =>
+            !isInCart(id) ? addToCart(foodItem) : increase(foodItem)
+          }
         >
-          Add to cart
+          {!isInCart(id) ? <div>Add to cart</div> : <div>Add More</div>}
         </button>
       </div>
     </div>

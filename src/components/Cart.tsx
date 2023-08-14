@@ -1,17 +1,18 @@
-import useLocalStorageState from "use-local-storage-state";
+import { useContext } from "react";
+import CartContext from "../context/cart/CartContext";
 
 export default function Cart() {
-  const [cart] = useLocalStorageState("cart", {});
-
-  const productsInCart = Object.values(cart || {});
+  const { cartItems } = useContext(CartContext);
   return (
     <div className="flex justify-center items-center">
       <div className="relative">
-        <div className="t-0 absolute left-3">
-          <p className="flex h-2 w-2 items-center justify-center rounded-full bg-red-500 p-3 text-xs text-white">
-            {productsInCart.length}
-          </p>
-        </div>
+        {!!cartItems.length && (
+          <div className="t-0 absolute left-3">
+            <p className="flex h-2 w-2 items-center justify-center rounded-full bg-red-500 p-3 text-xs text-white">
+              {cartItems.length}
+            </p>
+          </div>
+        )}
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"

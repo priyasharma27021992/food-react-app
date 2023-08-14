@@ -10,30 +10,35 @@ import Login from "./pages/Login";
 
 import "./App.css";
 import ProtectedRoute from "./routes/ProtectedRoute";
-import AuthProvider from "./providers/AuthProvider";
+import AuthProvider from "./context/auth/AuthProvider";
+import CartProvider from "./context/cart/CartProvider";
+import Cart from "./pages/Cart";
 
 export default function App() {
   return (
     <Suspense fallback={<BigSpinner />}>
       <Router>
         <AuthProvider>
-          <Routes>
-            <Route path="/" element={<Layout />}>
-              <Route path="/" element={<Home />} />
-              <Route path="/login" element={<Login />} />
-              <Route
-                path="/offers"
-                element={
-                  <ProtectedRoute>
-                    <Offers />
-                  </ProtectedRoute>
-                }
-              />
-              <Route path="/help" element={<Help />} />
-              <Route path="/restaurants/:name" element={<RestaurantMenu />} />
-              <Route path="*" element={<NotFound />} />
-            </Route>
-          </Routes>
+          <CartProvider>
+            <Routes>
+              <Route path="/" element={<Layout />}>
+                <Route path="/" element={<Home />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/cart" element={<Cart />} />
+                <Route
+                  path="/offers"
+                  element={
+                    <ProtectedRoute>
+                      <Offers />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route path="/help" element={<Help />} />
+                <Route path="/restaurants/:name" element={<RestaurantMenu />} />
+                <Route path="*" element={<NotFound />} />
+              </Route>
+            </Routes>
+          </CartProvider>
         </AuthProvider>
       </Router>
     </Suspense>
