@@ -5,6 +5,7 @@ export type FoodItem = {
   description: string;
   id: string;
   image: string;
+  quantity: number;
 };
 export interface CartProps {
   [productId: string]: FoodItem;

@@ -1,3 +1,4 @@
+import { FoodItem } from "../../types";
 import {
   ADD_TO_CART,
   CHECKOUT,
@@ -7,14 +8,14 @@ import {
   REMOVE_ITEM,
 } from "./CartTypes";
 
-const Storage = (cartItems) => {
+const Storage = (cartItems: FoodItem[]) => {
   localStorage.setItem(
     "cartItems",
-    JSON.stringify(cartItems.length > 0 ? cartItems : [])
+    JSON.stringify(cartItems?.length > 0 ? cartItems : [])
   );
 };
 
-export const sumItems = (cartItems) => {
+export const sumItems = (cartItems: FoodItem[]) => {
   Storage(cartItems);
   const itemCount = cartItems.reduce(
     (total, product) => total + product.quantity,
@@ -22,7 +23,7 @@ export const sumItems = (cartItems) => {
   );
 
   const total = cartItems
-    .reduce((total, product) => total + product.price * product.quantity, 0)
+    .reduce((total, product) => total + product.price * product?.quantity, 0)
     .toFixed(0);
 
   return { itemCount, total };
