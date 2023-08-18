@@ -1,26 +1,31 @@
-import { createContext, useContext, useMemo } from "react";
+import { useMemo, useReducer } from "react";
 import { useNavigate } from "react-router-dom";
-import useLocalStorageState from "use-local-storage-state";
-
-const AuthContext = createContext({});
+import { AuthReducer } from "./AuthReducer";
+import AuthContext, { AUTH_INITIAL_STATE } from "./AuthContext";
+import { LOGIN, LOGIN_FAILURE, LOGIN_SUCCESS, LOGOUT } from "./AuthTypes";
 
 export default function AuthProvider({ children }) {
-  const [user, setUser] = useLocalStorageState("user", null);
   const navigate = useNavigate();
+  const [state, dispatch] = useReducer(AuthReducer, AUTH_INITIAL_STATE);
 
-  const login = async (data) => {
-    setUser(data);
-    navigate("/");
+  const login = (payload) => {
+    dispatch({ type: LOGIN, payload });
+    try {
+      dispatch({ type: LOGIN_SUCCESS });
+      navigate("/");
+    } catch (error) {
+      dispatch({ type: LOGIN_FAILURE });
+    }
   };
 
   const logout = () => {
-    setUser(null);
+    dispatch({ type: LOGOUT });
     navigate("/", { replace: true });
   };
 
   const value = useMemo(
     () => ({
-      user,
+      user: state.user,
       login,
       logout,
     }),
@@ -29,7 +34,3 @@ export default function AuthProvider({ children }) {
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
-
-export const useAuth = () => {
-  return useContext(AuthContext);
-};
