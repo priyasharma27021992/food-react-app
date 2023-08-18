@@ -21,9 +21,14 @@ export const sumItems = (cartItems: FoodItem[]) => {
     (total, product) => total + product.quantity,
     0
   );
+  debugger;
 
   const total = cartItems
-    .reduce((total, product) => total + product.price * product?.quantity, 0)
+    .reduce(
+      (total, product) =>
+        total + Number(product.price) * Number(product?.quantity),
+      0
+    )
     .toFixed(0);
 
   return { itemCount, total };
@@ -44,7 +49,7 @@ export const CartReducer = (state, action) => {
         cartItems: [...state.cartItems],
       };
 
-    case REMOVE_ITEM:
+    case REMOVE_ITEM: {
       return {
         ...state,
         ...sumItems(
@@ -54,16 +59,19 @@ export const CartReducer = (state, action) => {
           ...state.cartItems.filter((item) => item.id !== action.payload.id),
         ],
       };
+    }
 
-    case INCREASE:
+    case INCREASE: {
+      debugger;
       state.cartItems[
         state.cartItems.findIndex((item) => item.id === action.payload.id)
       ].quantity++;
       return {
         ...state,
-        ...sumItems(state.cartItems),
+        // ...sumItems(state.cartItems),
         cartItems: [...state.cartItems],
       };
+    }
 
     case DECREASE:
       state.cartItems[

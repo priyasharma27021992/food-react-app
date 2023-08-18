@@ -6,7 +6,7 @@ export default function RestaurantMenu() {
   return (
     <div className="flex flex-col justify-center items-center">
       {menuItems?.map((foodItem: FoodItemType) => {
-        return <FoodItem foodItem={foodItem} />;
+        return <FoodItem foodItem={foodItem} key={foodItem?.id} />;
       })}
     </div>
   );

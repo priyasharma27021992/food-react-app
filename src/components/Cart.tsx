@@ -2,14 +2,19 @@ import { useContext } from "react";
 import CartContext from "../context/cart/CartContext";
 
 export default function Cart() {
-  const { cartItems } = useContext(CartContext);
+  const { cartItems, total } = useContext(CartContext);
+  console.log("total", total);
+  let totalQuantity = 0;
+  cartItems?.forEach((item) => {
+    totalQuantity = item?.quantity + totalQuantity;
+  });
   return (
     <div className="flex justify-center items-center">
       <div className="relative">
-        {!!cartItems.length && (
+        {!!totalQuantity && (
           <div className="t-0 absolute left-3">
             <p className="flex h-2 w-2 items-center justify-center rounded-full bg-red-500 p-3 text-xs text-white">
-              {cartItems.length}
+              {totalQuantity}
             </p>
           </div>
         )}
