@@ -11,6 +11,7 @@ export default function Home() {
               name: restaurant?.data?.name,
               cuisines: restaurant?.data?.cuisines,
               cloudinaryImageId: restaurant?.data?.cloudinaryImageId,
+              id: restaurant?.data?.id,
             }}
           />
         );
