@@ -23,7 +23,7 @@ export default function RestaurantCard({
         />
 
         <div className="p-6">
-          <h5 className="mb-2 text-xl font-medium leading-tight whitespace-nowrap overflow-scroll text-neutral-800 dark:text-neutral-50">
+          <h5 className="mb-2 text-xl font-medium leading-tight md:whitespace-nowrap overflow-scroll text-neutral-800 dark:text-neutral-50">
             {name}
           </h5>
           <p className="mb-4 text-base text-neutral-600 dark:text-neutral-200">

@@ -31,8 +31,8 @@ export default function Login() {
     }
   };
   return (
-    <section className="bg-gray-50 w-full h-full">
-      <div className="p-10 flex flex-col md:w-3/12 h-1/2 mx-auto mt-20 bg-white rounded-lg shadow">
+    <section className="bg-gray-50 w-full h-full py-5">
+      <div className="p-10 flex flex-col w-4/5 sm:w-6/12 md:w-5/12 lg:w-1/3 mx-auto mt-20 bg-white rounded-lg shadow">
         <h1 className="text-xl mx-auto font-bold md:text-2xl">
           Sign in your account
         </h1>
@@ -53,7 +53,7 @@ export default function Login() {
                     <Field
                       type="text"
                       name="username"
-                      className="block w-full h-8 mt-3 border border-gray-500 rounded-lg"
+                      className="block w-full h-8 my-3 border border-gray-500 rounded-lg"
                     />
                     {errors.username && touched.username && (
                       <div className="text-red-600 pt-1">
@@ -67,7 +67,7 @@ export default function Login() {
                   >
                     Password:
                     <Field
-                      className="block w-full h-8 mt-3 border border-gray-500 rounded-lg"
+                      className="block w-full h-8 my-3 border border-gray-500 rounded-lg"
                       type="password"
                       name="password"
                     />
@@ -78,7 +78,7 @@ export default function Login() {
                 </div>
 
                 <button
-                  className="w-full mt-5 p-2 border border-blue-600 text-black bg-primary-600 font-medium rounded-lg text-center"
+                  className="w-full mt-10 mb-5 p-2 border border-blue-600 text-black bg-primary-600 font-medium rounded-lg text-center"
                   type="submit"
                 >
                   Submit
