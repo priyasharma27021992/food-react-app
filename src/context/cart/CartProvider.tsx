@@ -1,17 +1,9 @@
-import { useReducer } from "react";
-import CartContext, { storage } from "./CartContext";
-import { CartReducer, sumItems } from "./CartReducer";
+import CartContext from "./CartContext";
+import { useApiCallReducer } from "./CartReducer";
 
 const CartProvider = ({ children }) => {
-  // Initial state of cart
-  const initialState = {
-    cartItems: storage,
-    ...sumItems(storage),
-    checkout: false,
-  };
-
   //set up a reducer
-  const [state, dispatch] = useReducer(CartReducer, initialState);
+  const [state, dispatch] = useApiCallReducer();
 
   // Function to handle when an item is added from the store to cart
   const addToCart = (payload) => {
@@ -20,6 +12,7 @@ const CartProvider = ({ children }) => {
 
   // Function to handle when an item that is in the cart is added again
   const increase = (payload) => {
+    console.log("called");
     dispatch({ type: "INCREASE", payload });
   };
 

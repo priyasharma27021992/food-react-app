@@ -1,7 +1,8 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
+import AuthContext from "../context/auth/AuthContext";
 
 export default function Login() {
   const initialValues = {
@@ -10,6 +11,7 @@ export default function Login() {
   };
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
 
   const validationSchema = Yup.object().shape({
     username: Yup.string().required("Username is required"),
@@ -19,30 +21,10 @@ export default function Login() {
   const handleSubmit = async (values) => {
     try {
       const validatedData = await validationSchema.validate(values);
-
       try {
-        // const response = await fetch("/login", {
-        //   method: "POST",
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //   },
-        //   body: JSON.stringify(values),
-        // });
-        // if (!response.ok) {
-        //   const errorData = await response.json();
-        //   setError(errorData?.message);
-        // } else {
-        //   const data = await response.json();
-
-        //   localStorage.setItem("token", data.token);
-
-        //   navigate("/home");
-        // }
-        if (values.username === "priya") {
-          navigate("/");
-        }
+        login(values);
       } catch (error) {
-        setError(error.message);
+        setError("Error occured");
       }
     } catch (error) {
       console.log("Error recorded", error);
