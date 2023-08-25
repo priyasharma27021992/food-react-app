@@ -1,6 +1,6 @@
 export default function Help() {
   return (
-    <div className="bg-indigo-500 h-full w-full">
+    <div className="bg-cyan-600 h-full w-full">
       <div className="my-4 mx-10 text-3xl">
         <h1>Help And Support</h1>
       </div>
