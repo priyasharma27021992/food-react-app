@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import CartContext from "./CartContext";
 import { useApiCallReducer } from "./CartReducer";
 
@@ -33,6 +34,13 @@ const CartProvider = ({ children }) => {
   const handleCheckout = () => {
     dispatch({ type: "CHECKOUT" });
   };
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      dispatch({ type: "EXPIRE_CART_ITEMS" });
+    }, 1000);
+    return clearInterval(timer);
+  });
 
   return (
     <CartContext.Provider

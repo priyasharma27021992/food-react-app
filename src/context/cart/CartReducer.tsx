@@ -1,10 +1,7 @@
-import { useReducer } from "react";
 import { FoodItem } from "../../types";
 import { storage } from "./CartContext";
 import {
   ADD_TO_CART,
-  CHECKOUT,
-  CLEAR,
   DECREASE,
   INCREASE,
   REMOVE_ITEM,
@@ -49,6 +46,7 @@ export function useApiCallReducer() {
           state.cartItems.push({
             ...action.payload,
             quantity: 1,
+            timeAdded: new Date(),
           });
         }
         return {
@@ -76,7 +74,11 @@ export function useApiCallReducer() {
           cartItems: [
             ...state.cartItems.map((item) => {
               if (item.id === action.payload.id) {
-                return { ...item, quantity: item.quantity++ };
+                return {
+                  ...item,
+                  quantity: item.quantity++,
+                  timeAdded: new Date(),
+                };
               }
               return item;
             }),
@@ -91,9 +93,20 @@ export function useApiCallReducer() {
           cartItems: [
             ...state.cartItems.map((item) => {
               if (item.id === action.payload.id) {
-                return { ...item, quantity: item.quantity-- };
+                return { ...item, quantity: item.quantity--;,
+                  timeAdded: new Date() };
               }
               return item;
+            }),
+          ],
+        };
+
+      case EXPIRE_CART_ITEMS:
+        return {
+          ...state,
+          cartItems: [
+            ...state.cartItems.filter((item) => {
+              if (new Date() - item.timeAdded > 5000) return item;
             }),
           ],
         };
