@@ -4,3 +4,4 @@ export const INCREASE = "INCREASE";
 export const DECREASE = "DECREASE";
 export const CHECKOUT = "CHECKOUT";
 export const CLEAR = "CLEAR";
+export const EXPIRE_CART_ITEMS = "EXPIRE_CART_ITEMS";

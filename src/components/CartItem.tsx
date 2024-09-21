@@ -3,8 +3,9 @@ import plus from "/assets/icons/add-circle-outline.svg";
 import minus from "/assets/icons/remove-circle-outline.svg";
 import { useContext } from "react";
 import CartContext from "../context/cart/CartContext";
+import { FoodItem as FoodItemType } from "../types";
 
-export default function CartItem({ product }) {
+export default function CartItem({ product }: { product: FoodItemType }) {
   const { name, image, quantity, id } = product;
   const { increase, decrease, removeFromCart } = useContext(CartContext);
   return (

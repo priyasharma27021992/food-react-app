@@ -6,13 +6,14 @@ type restaurantDataProps = {
     name: string;
     cuisines: string[];
     cloudinaryImageId: string;
+    id: string;
   };
 };
 
 export default function RestaurantCard({
   restaurantData,
 }: restaurantDataProps) {
-  const { name, cuisines, cloudinaryImageId, id } = restaurantData;
+  const { name, cuisines, cloudinaryImageId } = restaurantData;
   return (
     <Link to={`/restaurants/${name}`}>
       <div className="block rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700 hover:scale-95">

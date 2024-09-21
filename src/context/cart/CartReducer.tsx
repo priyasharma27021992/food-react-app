@@ -1,11 +1,31 @@
+import { useReducer } from "react";
 import { FoodItem } from "../../types";
 import { storage } from "./CartContext";
 import {
   ADD_TO_CART,
+  CHECKOUT,
+  CLEAR,
   DECREASE,
   INCREASE,
   REMOVE_ITEM,
 } from "./CartTypes";
+
+export type AppActions = {
+  type:
+    | "ADD_TO_CART"
+    | "CHECKOUT"
+    | "CLEAR"
+    | "DECREASE"
+    | "INCREASE"
+    | "REMOVE_ITEM";
+  payload: FoodItem;
+};
+
+export type AppState = {
+  cartItems: FoodItem[] | [];
+  itemCount?: number;
+  total?: string;
+};
 
 const Storage = (cartItems: FoodItem[]) => {
   localStorage.setItem(
@@ -39,7 +59,7 @@ const initialState = {
 };
 
 export function useApiCallReducer() {
-  const CartReducer = (state, action) => {
+  const CartReducer = (state: AppState, action: AppActions) => {
     switch (action.type) {
       case ADD_TO_CART:
         if (!state.cartItems.find((item) => item.id === action.payload.id)) {
@@ -93,10 +113,8 @@ export function useApiCallReducer() {
           cartItems: [
             ...state.cartItems.map((item) => {
               if (item.id === action.payload.id) {
-                return { ...item, quantity: item.quantity--;,
-                  timeAdded: new Date() };
+                return { ...item, quantity: item.quantity-- };
               }
-              return item;
             }),
           ],
         };

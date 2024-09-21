@@ -1,33 +1,34 @@
 import { useEffect } from "react";
 import CartContext from "./CartContext";
 import { useApiCallReducer } from "./CartReducer";
+import { FoodItem } from "../../types";
 
-const CartProvider = ({ children }) => {
+const CartProvider = ({ children }: { children: React.ReactNode }) => {
   //set up a reducer
   const [state, dispatch] = useApiCallReducer();
 
   // Function to handle when an item is added from the store to cart
-  const addToCart = (payload) => {
+  const addToCart = (payload: FoodItem) => {
     dispatch({ type: "ADD_TO_CART", payload });
   };
 
   // Function to handle when an item that is in the cart is added again
-  const increase = (payload) => {
+  const increase = (payload: FoodItem) => {
     console.log("called");
     dispatch({ type: "INCREASE", payload });
   };
 
   // Function to handle when an item is removed from the cart
-  const decrease = (payload) => {
+  const decrease = (payload: FoodItem) => {
     dispatch({ type: "DECREASE", payload });
   };
 
   // Function to remove an item from the cart
-  const removeFromCart = (payload) => {
+  const removeFromCart = (payload: FoodItem) => {
     dispatch({ type: "REMOVE_ITEM", payload });
   };
 
-  const clearCart = (payload) => {
+  const clearCart = () => {
     dispatch({ type: "CLEAR" });
   };
 
